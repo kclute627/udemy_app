@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit'
@@ -7,7 +7,35 @@ import Cockpit from '../components/Cockpit/Cockpit'
 
 
 
-class App extends Component {
+class App extends PureComponent {
+    constructor(props){
+      super(props);
+      console.log('[App.js] Inside Constructor', props);
+    }
+
+    componentWillMount(){
+      console.log('[App.js] Inside ComponentWillMount()');
+    }
+
+    componentDidMount(){
+      console.log('[APP.js] Inside Component Did Mount');
+    }
+    // shouldComponentUpdate(nextProps, nextState){
+    //   console.log('[UPDATE APP.js] Inside shouldComponentUpdate()', nextProps, nextState)
+  
+    //   return nextState.persons !== this.state.persons || 
+    //   nextState.showPersons !== this.state.showPersons;
+
+    // }
+  
+    componentWillUpdate(nextProps, nextState){
+      console.log('[UPDATE App.js] Inside componentWillMount()', nextProps, nextState);
+    }
+  
+    componentDidUpdate(){
+      console.log('[UPDATE App.js] Inside componentDidUpdate()')
+    }
+
   state = {
     persons: [
       { id: 'asfa1', name: 'Kyle', age: 31 },
@@ -50,6 +78,7 @@ class App extends Component {
   }
 
   render () {
+    console.log('[APP.js] Inside Render ')
     
 
     let persons = null;
@@ -73,6 +102,10 @@ class App extends Component {
     return (
       
       <div className={classes.App}>
+        <button 
+        onClick={()=>{
+          this.setState({showPersons: true})
+        }}>Show Persons</button>
         <Cockpit 
         showPersons = {this.state.showPersons}
         persons={this.state.persons}
